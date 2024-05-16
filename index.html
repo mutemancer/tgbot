@@ -30,6 +30,7 @@
             Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" request to the bot
         }
 
+        // Receive data from the bot
         Telegram.WebApp.onEvent('web_app_data', function(data) {
             console.log('Bot tarafından veri alındı:', data);
             if (data && data !== '{}') {
