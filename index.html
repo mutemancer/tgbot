@@ -28,10 +28,12 @@
         }
 
         // Receive data from the bot
-        window.Telegram.WebApp.onEvent('web_app_data', function(data) {
-            const parsedData = JSON.parse(data);
-            if (parsedData && parsedData.points !== undefined) {
-                updatePoints(parsedData.points);
+        Telegram.WebApp.onEvent('web_app_data', function(data) {
+            if (data && data !== '{}') {
+                const parsedData = JSON.parse(data);
+                if (parsedData && parsedData.points !== undefined) {
+                    updatePoints(parsedData.points);
+                }
             }
         });
     </script>
