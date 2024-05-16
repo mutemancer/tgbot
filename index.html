@@ -8,16 +8,29 @@
 </head>
 <body>
     <h1>Welcome to the Telegram Web App!</h1>
-    <button onclick="sendData()">Click to Farm Points</button>
+    <p id="points">Loading your points...</p>
+    <button onclick="farmPoints()">Click to Farm Points</button>
 
     <script>
-        function sendData() {
+        Telegram.WebApp.ready();
+
+        function updatePoints(points) {
+            document.getElementById('points').innerText = `Your points: ${points}`;
+        }
+
+        function farmPoints() {
             Telegram.WebApp.sendData("farm"); // Send "farm" data to the bot
         }
 
-        Telegram.WebApp.onEvent('themeChanged', function() {
-            document.body.style.backgroundColor = Telegram.WebApp.themeParams.bg_color;
+        // Receive data from the bot
+        Telegram.WebApp.onEvent('message', function(data) {
+            if (data) {
+                updatePoints(data.points);
+            }
         });
+
+        // Request current points from the bot when the app starts
+        Telegram.WebApp.sendData("get_points");
     </script>
 </body>
 </html>
