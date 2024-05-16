@@ -24,7 +24,7 @@
 
         // Receive data from the bot
         Telegram.WebApp.onEvent('message', function(event) {
-            const data = event.data;
+            const data = JSON.parse(event.data);
             if (data && data.points !== undefined) {
                 updatePoints(data.points);
             }
