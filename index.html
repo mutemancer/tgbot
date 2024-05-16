@@ -22,8 +22,9 @@
             Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" data to the bot
         }
 
-        // Listen for data sent from the bot
-        Telegram.WebApp.onEvent('webviewData', function(data) {
+        // Receive data from the bot
+        Telegram.WebApp.onEvent('message', function(event) {
+            const data = JSON.parse(event.data);
             if (data && data.points !== undefined) {
                 updatePoints(data.points);
             }
