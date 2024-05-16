@@ -20,15 +20,18 @@
         }
 
         function getPoints() {
+            console.log('Güncel Puanı Göster butonuna tıklandı');
             Telegram.WebApp.sendData(JSON.stringify({ action: "get_points" })); // Send "get_points" request to the bot
         }
 
         function farmPoints() {
+            console.log('Click to Farm Points butonuna tıklandı');
             Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" request to the bot
         }
 
         // Receive data from the bot
         Telegram.WebApp.onEvent('web_app_data', function(data) {
+            console.log('Bot tarafından veri alındı:', data);
             if (data && data !== '{}') {
                 const parsedData = JSON.parse(data);
                 if (parsedData && parsedData.points !== undefined) {
