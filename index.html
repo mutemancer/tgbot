@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Welcome to the Telegram Web App!</h1>
-    <p id="points">Loading your points...</p>
+    <p id="points">Fetching your points...</p>
     <button onclick="farmPoints()">Click to Farm Points</button>
 
     <script>
@@ -23,10 +23,10 @@
         }
 
         // Receive data from the bot
-        Telegram.WebApp.onEvent('message', function(event) {
-            const data = JSON.parse(event.data);
-            if (data && data.points !== undefined) {
-                updatePoints(data.points);
+        Telegram.WebApp.onEvent('web_app_data', function(data) {
+            const parsedData = JSON.parse(data);
+            if (parsedData && parsedData.points !== undefined) {
+                updatePoints(parsedData.points);
             }
         });
 
