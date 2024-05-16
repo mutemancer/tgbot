@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Web App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <h1>Welcome to the Telegram Web App!</h1>
+    <p id="points">Loading your points...</p>
+    <button onclick="farmPoints()">Click to Farm Points</button>
+
+    <script>
+        Telegram.WebApp.ready();
+
+        function updatePoints(points) {
+            document.getElementById('points').innerText = `Your points: ${points}`;
+        }
+
+        function farmPoints() {
+            Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" data to the bot
+        }
+
+        // Listen for data sent from the bot
+        Telegram.WebApp.onEvent('webviewData', function(data) {
+            if (data && data.points !== undefined) {
+                updatePoints(data.points);
+            }
+        });
+
+        // Request current points from the bot when the app starts
+        Telegram.WebApp.sendData(JSON.stringify({ action: "get_points" }));
+    </script>
+</body>
+</html>
