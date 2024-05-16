@@ -14,6 +14,7 @@
 
     <script>
         Telegram.WebApp.ready();
+        console.log('Telegram Web App is ready');
 
         function updatePoints(points) {
             document.getElementById('points').innerText = `Your points: ${points}`;
@@ -29,7 +30,6 @@
             Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" request to the bot
         }
 
-        // Receive data from the bot
         Telegram.WebApp.onEvent('web_app_data', function(data) {
             console.log('Bot tarafından veri alındı:', data);
             if (data && data !== '{}') {
