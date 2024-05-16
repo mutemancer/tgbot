@@ -19,18 +19,19 @@
         }
 
         function farmPoints() {
-            Telegram.WebApp.sendData("farm"); // Send "farm" data to the bot
+            Telegram.WebApp.sendData(JSON.stringify({ action: "farm" })); // Send "farm" data to the bot
         }
 
         // Receive data from the bot
-        Telegram.WebApp.onEvent('message', function(data) {
-            if (data) {
+        Telegram.WebApp.onEvent('message', function(event) {
+            const data = event.data;
+            if (data && data.points !== undefined) {
                 updatePoints(data.points);
             }
         });
 
         // Request current points from the bot when the app starts
-        Telegram.WebApp.sendData("get_points");
+        Telegram.WebApp.sendData(JSON.stringify({ action: "get_points" }));
     </script>
 </body>
 </html>
